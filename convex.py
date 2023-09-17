@@ -133,7 +133,6 @@ class Polygon(Figure):
             ex4 = vec4.dot(Vector(vertex1, vertex2))
             ex5 = vec5.dot(Vector(vertex2, vertex3))
             ex6 = vec6.dot(Vector(vertex3, vertex1))
-            print('ok')
             if (((ex1 >= 0 and ex2 >= 0 and ex3 >= 0) or
                 (ex1 <= 0 and ex2 <= 0 and ex3 <= 0)) and
                 ((ex4 >= 0 and ex5 >= 0 and ex6 >= 0) or
