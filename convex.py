@@ -1,5 +1,6 @@
 from deq import Deq
 from r2point import R2Point
+from vector import Vector
 
 
 class Figure:
@@ -110,6 +111,35 @@ class Polygon(Figure):
             self.points.push_first(t)
 
         return self
+
+    def num(self, triangle):
+        count = 0
+        vertex1 = triangle.points.array[0]
+        vertex2 = triangle.points.array[1]
+        vertex3 = triangle.points.array[2]
+        # Перебираем вершины выпуклой оболочки
+        for i in range(self.points.size()):
+            p1 = self.points.array[i]
+            p2 = self.points.array[(i + 1) % self.points.size()]
+            vec1 = Vector(vertex1, p1)
+            vec2 = Vector(vertex2, p1)
+            vec3 = Vector(vertex3, p1)
+            ex1 = vec1.dot(Vector(vertex1, vertex2))
+            ex2 = vec2.dot(Vector(vertex2, vertex3))
+            ex3 = vec3.dot(Vector(vertex3, vertex1))
+            vec4 = Vector(vertex1, p2)
+            vec5 = Vector(vertex2, p2)
+            vec6 = Vector(vertex3, p2)
+            ex4 = vec4.dot(Vector(vertex1, vertex2))
+            ex5 = vec5.dot(Vector(vertex2, vertex3))
+            ex6 = vec6.dot(Vector(vertex3, vertex1))
+            if (((ex1 >= 0 and ex2 >= 0 and ex3 >= 0) or
+                (ex1 <= 0 and ex2 <= 0 and ex3 <= 0)) and
+                ((ex4 >= 0 and ex5 >= 0 and ex6 >= 0) or
+                    (ex4 <= 0 and ex5 <= 0 and ex6 <= 0))):
+                count += 1
+
+        return count
 
 
 if __name__ == "__main__":

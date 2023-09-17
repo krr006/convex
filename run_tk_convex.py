@@ -27,17 +27,28 @@ setattr(Point, 'draw', point_draw)
 setattr(Segment, 'draw', segment_draw)
 setattr(Polygon, 'draw', polygon_draw)
 
-
 tk = TkDrawer()
-f = Void()
 tk.clean()
+tr = Void()
+print("задайте координаты вершин треугольника")
+for i in range(3):
+    tr = tr.add(R2Point())
+    tk.clean()
+    tr.draw(tk)
 
+f = Void()
+print("\nЗадайте координаты вершин выпуклой оболочки")
 try:
+    c = 0
     while True:
         f = f.add(R2Point())
         tk.clean()
+        tr.draw(tk)
         f.draw(tk)
         print(f"S = {f.area()}, P = {f.perimeter()}\n")
-except(EOFError, KeyboardInterrupt):
+        c += 1
+        if c >= 3:
+            print(f"Количество ребер внутри треугольника равно {f.num(tr)}")
+except (EOFError, KeyboardInterrupt):
     print("\nStop")
     tk.close()

@@ -162,3 +162,7 @@ class TestPolygon:
 
     def test_area2(self):
         assert self.f.add(R2Point(1.0, 1.0)).area() == approx(1.0)
+
+    def test_tr1(self):
+        tr = Polygon(R2Point(3.0, 3.0), R2Point(-3.0, 3.0), R2Point(0.0, -5.0))
+        assert self.f.num(tr) == 3
