@@ -133,6 +133,7 @@ class Polygon(Figure):
             ex4 = vec4.dot(Vector(vertex1, vertex2))
             ex5 = vec5.dot(Vector(vertex2, vertex3))
             ex6 = vec6.dot(Vector(vertex3, vertex1))
+            print('ok')
             if (((ex1 >= 0 and ex2 >= 0 and ex3 >= 0) or
                 (ex1 <= 0 and ex2 <= 0 and ex3 <= 0)) and
                 ((ex4 >= 0 and ex5 >= 0 and ex6 >= 0) or
@@ -143,11 +144,15 @@ class Polygon(Figure):
 
 
 if __name__ == "__main__":
-    f = Void()
-    print(type(f), f.__dict__)
-    f = f.add(R2Point(0.0, 0.0))
-    print(type(f), f.__dict__)
-    f = f.add(R2Point(1.0, 0.0))
-    print(type(f), f.__dict__)
-    f = f.add(R2Point(0.0, 1.0))
-    print(type(f), f.__dict__)
+    t = Polygon(R2Point(3.0, 3.0), R2Point(-3.0, 3.0), R2Point(0.0, -5.0))
+    tr = Polygon(R2Point(1.0, 1.0), R2Point(2.0, 1.0), R2Point(1.0, 2.0))
+    print(t.num(tr))
+
+    # f = Void()
+    # print(type(f), f.__dict__)
+    # f = f.add(R2Point(0.0, 0.0))
+    # print(type(f), f.__dict__)
+    # f = f.add(R2Point(1.0, 0.0))
+    # print(type(f), f.__dict__)
+    # f = f.add(R2Point(0.0, 1.0))
+    # print(type(f), f.__dict__)
