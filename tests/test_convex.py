@@ -185,3 +185,27 @@ class TestPolygon:
         tr = Polygon(R2Point(4.0, 5.0), R2Point(-3.0, 2.0), R2Point(3.0, -3.0))
         result = f.num(tr)
         assert result == 4
+
+    def test_tr5(self):
+        f = Polygon(R2Point(1.0, 1.0), R2Point(1.0, -1.0), R2Point(2.0, -2.0))
+        f = f.add(R2Point(3.0, 0.0))
+        tr = Polygon(R2Point(4.0, 5.0), R2Point(-3.0, 2.0), R2Point(3.0, -3.0))
+        result = f.num(tr)
+        assert result == 4
+
+    def test_tr6(self):
+        f = Polygon(R2Point(1.0, 1.0), R2Point(1.0, -1.0), R2Point(2.0, -2.0))
+        f = f.add(R2Point(3.0, 0.0))
+        f = f.add(R2Point(2.0, 2.0))
+        tr = Polygon(R2Point(4.0, 5.0), R2Point(-3.0, 2.0), R2Point(3.0, -3.0))
+        result = f.num(tr)
+        assert result == 5
+
+    def test_tr7(self):
+        f = Polygon(R2Point(1.0, 1.0), R2Point(1.0, -1.0), R2Point(2.0, -2.0))
+        f = f.add(R2Point(3.0, 0.0))
+        f = f.add(R2Point(2.0, 2.0))
+        f = f.add(R2Point(0.4, 0.0))
+        tr = Polygon(R2Point(4.0, 5.0), R2Point(-3.0, 2.0), R2Point(3.0, -3.0))
+        result = f.num(tr)
+        assert result == 6
