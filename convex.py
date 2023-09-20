@@ -39,6 +39,11 @@ class Segment(Figure):
     def perimeter(self):
         return 2.0 * self.p.dist(self.q)
 
+    
+    def num(self):
+
+        pass
+
     def add(self, r):
         if R2Point.is_triangle(self.p, self.q, r):
             return Polygon(self.p, self.q, r)
