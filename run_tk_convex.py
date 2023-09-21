@@ -39,15 +39,13 @@ for i in range(3):
 f = Void()
 print("\nЗадайте координаты вершин выпуклой оболочки")
 try:
-    c = 0
     while True:
         f = f.add(R2Point())
         tk.clean()
         tr.draw(tk)
         f.draw(tk)
         print(f"S = {f.area()}, P = {f.perimeter()}\n")
-        c += 1
-        if c >= 3:
+        if not (isinstance(f, Point)):
             print(f"Количество ребер внутри треугольника равно {f.num(tr)}")
 except (EOFError, KeyboardInterrupt):
     print("\nStop")
