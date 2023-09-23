@@ -30,7 +30,7 @@ setattr(Polygon, 'draw', polygon_draw)
 tk = TkDrawer()
 tk.clean()
 tr = Void()
-print("задайте координаты вершин треугольника")
+print("Задайте координаты вершин треугольника")
 for i in range(3):
     tr = tr.add(R2Point())
     tk.clean()
@@ -39,13 +39,20 @@ for i in range(3):
 f = Void()
 print("\nЗадайте координаты вершин выпуклой оболочки")
 try:
+
+
     while True:
-        f = f.add(R2Point())
-        tk.clean()
-        tr.draw(tk)
-        f.draw(tk)
-        print(f"S = {f.area()}, P = {f.perimeter()}\n")
-        if not (isinstance(f, Point)):
+        if (isinstance(f, Void)):
+            f = f.add(R2Point())
+            tk.clean()
+            f.draw(tk)
+            tr.draw(tk)
+        else:
+            f = f.add(R2Point())
+            tk.clean()
+            tr.draw(tk)
+            f.draw(tk)
+            print(f"S = {f.area()}, P = {f.perimeter()}\n")
             print(f"Количество ребер внутри треугольника равно {f.num(tr)}")
 except (EOFError, KeyboardInterrupt):
     print("\nStop")

@@ -39,7 +39,6 @@ class Segment(Figure):
     def perimeter(self):
         return 2.0 * self.p.dist(self.q)
 
-
     def num(self, triangle):
         vertex1 = triangle.points.array[0]
         vertex2 = triangle.points.array[1]
@@ -78,6 +77,8 @@ class Polygon(Figure):
     """ Многоугольник """
 
     def __init__(self, a, b, c):
+        # self.vertices = []
+        self.count = 0
         self.points = Deq()
         self.points.push_first(b)
         if b.is_light(a, c):
@@ -96,9 +97,11 @@ class Polygon(Figure):
         return self._area
 
     # добавление новой точки
-    def add(self, t):
-
-        # поиск освещённого ребра
+    def add(self, t, triangle):
+        # vertex1 = triangle.points.array[0]
+        # vertex2 = triangle.points.array[1]
+        # vertex3 = triangle.points.array[2]
+        # # поиск освещённого ребра
         for n in range(self.points.size()):
             if t.is_light(self.points.last(), self.points.first()):
                 break
@@ -116,14 +119,49 @@ class Polygon(Figure):
             # удаление освещённых рёбер из начала дека
             p = self.points.pop_first()
             while t.is_light(p, self.points.first()):
+                # vec1 = Vector(vertex1, p)
+                # vec2 = Vector(vertex2, p)
+                # vec3 = Vector(vertex3, p)
+                # ex1 = vec1.dot(Vector(vertex1, vertex2))
+                # ex2 = vec2.dot(Vector(vertex2, vertex3))
+                # ex3 = vec3.dot(Vector(vertex3, vertex1))
+                # vec4 = Vector(vertex1, self.points.first())
+                # vec5 = Vector(vertex2, self.points.first())
+                # vec6 = Vector(vertex3, self.points.first())
+                # ex6 = vec6.dot(Vector(vertex3, vertex1))
+                # ex4 = vec4.dot(Vector(vertex1, vertex2))
+                # ex5 = vec5.dot(Vector(vertex2, vertex3))
+                # if (((ex1 >= 0 and ex2 >= 0 and ex3 >= 0) or
+                #     (ex1 <= 0 and ex2 <= 0 and ex3 <= 0)) and
+                #     ((ex4 >= 0 and ex5 >= 0 and ex6 >= 0) or
+                #         (ex4 <= 0 and ex5 <= 0 and ex6 <= 0))):
+                #     self.count -= 1
                 self._perimeter -= p.dist(self.points.first())
                 self._area += abs(R2Point.area(t, p, self.points.first()))
                 p = self.points.pop_first()
+
             self.points.push_first(p)
 
             # удаление освещённых рёбер из конца дека
             p = self.points.pop_last()
             while t.is_light(self.points.last(), p):
+                # vec1 = Vector(vertex1, p)
+                # vec2 = Vector(vertex2, p)
+                # vec3 = Vector(vertex3, p)
+                # ex1 = vec1.dot(Vector(vertex1, vertex2))
+                # ex2 = vec2.dot(Vector(vertex2, vertex3))
+                # ex3 = vec3.dot(Vector(vertex3, vertex1))
+                # vec4 = Vector(vertex1, self.points.first())
+                # vec5 = Vector(vertex2, self.points.first())
+                # vec6 = Vector(vertex3, self.points.first())
+                # ex6 = vec6.dot(Vector(vertex3, vertex1))
+                # ex4 = vec4.dot(Vector(vertex1, vertex2))
+                # ex5 = vec5.dot(Vector(vertex2, vertex3))
+                # if (((ex1 >= 0 and ex2 >= 0 and ex3 >= 0) or
+                #     (ex1 <= 0 and ex2 <= 0 and ex3 <= 0)) and
+                #     ((ex4 >= 0 and ex5 >= 0 and ex6 >= 0) or
+                #         (ex4 <= 0 and ex5 <= 0 and ex6 <= 0))):
+                #     self.count -= 1
                 self._perimeter -= p.dist(self.points.last())
                 self._area += abs(R2Point.area(t, p, self.points.last()))
                 p = self.points.pop_last()
@@ -132,8 +170,40 @@ class Polygon(Figure):
             # добавление двух новых рёбер
             self._perimeter += t.dist(self.points.first()) + \
                 t.dist(self.points.last())
+            # vec1 = Vector(vertex1, t)
+            # vec2 = Vector(vertex2, t)
+            # vec3 = Vector(vertex3, t)
+            # ex1 = vec1.dot(Vector(vertex1, vertex2))
+            # ex2 = vec2.dot(Vector(vertex2, vertex3))
+            # ex3 = vec3.dot(Vector(vertex3, vertex1))
+            # vec4 = Vector(vertex1, self.points.first())
+            # vec5 = Vector(vertex2, self.points.first())
+            # vec6 = Vector(vertex3, self.points.first())
+            # ex4 = vec4.dot(Vector(vertex1, vertex2))
+            # ex5 = vec5.dot(Vector(vertex2, vertex3))
+            # ex6 = vec6.dot(Vector(vertex3, vertex1))
+            # if (((ex1 >= 0 and ex2 >= 0 and ex3 >= 0) or
+            #     (ex1 <= 0 and ex2 <= 0 and ex3 <= 0)) and
+            #     ((ex4 >= 0 and ex5 >= 0 and ex6 >= 0) or
+            #         (ex4 <= 0 and ex5 <= 0 and ex6 <= 0))):
+            #     self.count += 1
+            # ex1 = vec1.dot(Vector(vertex1, vertex2))
+            # ex2 = vec2.dot(Vector(vertex2, vertex3))
+            # ex3 = vec3.dot(Vector(vertex3, vertex1))
+            # vec4 = Vector(vertex1, self.points.last())
+            # vec5 = Vector(vertex2, self.points.last())
+            # vec6 = Vector(vertex3, self.points.last())
+            # ex4 = vec4.dot(Vector(vertex1, vertex2))
+            # ex5 = vec5.dot(Vector(vertex2, vertex3))
+            # ex6 = vec6.dot(Vector(vertex3, vertex1))
+            # if (((ex1 >= 0 and ex2 >= 0 and ex3 >= 0) or
+            #     (ex1 <= 0 and ex2 <= 0 and ex3 <= 0)) and
+            #     ((ex4 >= 0 and ex5 >= 0 and ex6 >= 0) or
+            #         (ex4 <= 0 and ex5 <= 0 and ex6 <= 0))):
+            #     self.count += 1
             self.points.push_first(t)
-
+            # self.vertices.append(t)
+        print(f"Количество ребер внутри треугольника равно {self.count}")
         return self
 
     def num(self, triangle):
@@ -161,7 +231,7 @@ class Polygon(Figure):
                 (ex1 <= 0 and ex2 <= 0 and ex3 <= 0)) and
                 ((ex4 >= 0 and ex5 >= 0 and ex6 >= 0) or
                     (ex4 <= 0 and ex5 <= 0 and ex6 <= 0))):
-                count += +1
+                count += 1
 
         return count
 
