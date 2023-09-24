@@ -1,6 +1,6 @@
 #!/usr/bin/env -S python3 -B
 from r2point import R2Point
-from convex import Void
+from convex import Void, Point, Segment
 
 tr = Void()
 print("Задайте координаты вершин треугольника")
@@ -10,13 +10,19 @@ for i in range(3):
 print("\nЗадайте координаты вершин выпуклой оболочки")
 f = Void()
 try:
-    с = 0
+    ex = True
     while True:
-        f = f.add(R2Point())
-        print(f"S = {f.area()}, P = {f.perimeter()}")
-        print()
-        с += 1
-        if c >= 3:
-            print(f"Количество ребер внутри треугольника равно {f.num(tr)}")
+        if (isinstance(f, Void | Point)):
+            f = f.add(R2Point())
+        elif (isinstance(f, Segment)):
+            print(f"Количество ребер, лежащих в треугольнике - {f.num(tr)}")
+            f = f.add(R2Point())
+        else:
+            if ex:
+                f.three(tr)
+                ex = False
+            print(f"S = {f.area()}, P = {f.perimeter()}\n")
+            print(f"Количество ребер, лежащих в треугольнике равно {f.count}")
+            f = f.add(R2Point(), tr)
 except (EOFError, KeyboardInterrupt):
     print("\nStop")
