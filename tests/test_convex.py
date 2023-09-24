@@ -164,45 +164,52 @@ class TestPolygon:
         assert self.f.add(R2Point(1.0, 1.0)).area() == approx(1.0)
 
     def test_tr1(self):
-        tr = Polygon(R2Point(3.0, 3.0), R2Point(-3.0, 3.0), R2Point(0.0, -5.0))
-        assert self.f.num(tr) == 3
+        tr = Polygon(R2Point(5.0, 5.0), R2Point(-5.0, 5.0), R2Point(0.0, -4.0))
+        f = Segment(R2Point(1.0, 1.0), R2Point(-1.0, 1.0))
+        f.num(tr)
+        f = f.add(R2Point(0.0, 0.0))
+        f.three(tr)
+        result = f.count
+        assert result == 3
 
     def test_tr2(self):
-        t = Polygon(R2Point(3.0, 3.0), R2Point(-3.0, 3.0), R2Point(0.0, -5.0))
-        tr = Polygon(R2Point(1.0, 1.0), R2Point(2.0, 1.0), R2Point(1.0, 2.0))
-        result = t.num(tr)
-        assert result == 0
+        tr = Polygon(R2Point(5.0, 5.0), R2Point(-5.0, 5.0), R2Point(0.0, -4.0))
+        f = Segment(R2Point(1.0, 1.0), R2Point(-1.0, 1.0))
+        f.num(tr)
+        f = f.add(R2Point(0.0, 0.0))
+        f.three(tr)
+        f.add(R2Point(0.0, 4.0), tr)
+        result = f.count
+        assert result == 4
 
     def test_tr3(self):
-        f = Polygon(R2Point(3.0, 3.0), R2Point(-3.0, 3.0), R2Point(0.0, -5.0))
-        tr = Polygon(R2Point(0.0, 0.0), R2Point(4.0, 0.0), R2Point(2.0, 2.0))
-        result = f.num(tr)
-        assert result == 0
+        tr = Polygon(R2Point(5.0, 5.0), R2Point(-5.0, 5.0), R2Point(0.0, -4.0))
+        f = Segment(R2Point(1.0, 1.0), R2Point(-1.0, 1.0))
+        f.num(tr)
+        f = f.add(R2Point(0.0, 0.0))
+        f.three(tr)
+        f = f.add(R2Point(0.0, 4.0), tr)
+        f = f.add(R2Point(6.0, 6.0), tr)
+        result = f.count
+        assert result == 2
 
     def test_tr4(self):
-        f = Polygon(R2Point(1.0, 1.0), R2Point(1.0, -1.0), R2Point(2.0, -2.0))
-        f = f.add(R2Point(3.0, 0.0))
-        tr = Polygon(R2Point(4.0, 5.0), R2Point(-3.0, 2.0), R2Point(3.0, -3.0))
-        result = f.num(tr)
-        assert result == 4
+        tr = Polygon(R2Point(5.0, 5.0), R2Point(-5.0, 5.0), R2Point(0.0, -4.0))
+        f = Segment(R2Point(1.0, 1.0), R2Point(-1.0, 1.0))
+        f.num(tr)
+        f = f.add(R2Point(0.0, 0.0))
+        f.three(tr)
+        f = f.add(R2Point(0.0, 4.0), tr)
+        f = f.add(R2Point(6.0, 6.0), tr)
+        f = f.add(R2Point(-4.0, -4.0), tr)
+        result = f.count
+        assert result == 0
 
     def test_tr5(self):
-        f = Polygon(R2Point(1.0, 1.0), R2Point(1.0, -1.0), R2Point(2.0, -2.0))
-        f = f.add(R2Point(3.0, 0.0))
-        tr = Polygon(R2Point(4.0, 5.0), R2Point(-3.0, 2.0), R2Point(3.0, -3.0))
-        result = f.num(tr)
-        assert result == 4
-
-    def test_tr6(self):
-        f = Polygon(R2Point(1.0, 1.0), R2Point(1.0, -1.0), R2Point(2.0, -2.0))
-        f = f.add(R2Point(3.0, 0.0))
-        f = f.add(R2Point(2.0, 2.0))
-        tr = Polygon(R2Point(4.0, 5.0), R2Point(-3.0, 2.0), R2Point(3.0, -3.0))
-        result = f.num(tr)
-        assert result == 5
-
-    def test_tr8(self):
-        f = Polygon(R2Point(2.0, 2.0), R2Point(-3.0, 4.0), R2Point(-1.0, -2.0))
-        t = Polygon(R2Point(2.0, 2.0), R2Point(-3.0, 4.0), R2Point(-1.0, -2.0))
-        result = f.num(t)
-        assert result == 3
+        tr = Polygon(R2Point(1.0, 1.0), R2Point(-1.0, 1.0), R2Point(0.0, 0.0))
+        f = Segment(R2Point(5.0, 5.0), R2Point(-5.0, 5.0))
+        f.num(tr)
+        f = f.add(R2Point(0.0, -4.0))
+        f.three(tr)
+        result = f.count
+        assert result == 0

@@ -75,9 +75,9 @@ class Segment(Figure):
 
 
 class Polygon(Figure):
-    """ Многоугольник """
 
-    def __init__(self, a, b, c, count):
+    """ Многоугольник """
+    def __init__(self, a, b, c, count=0):
         self.count = count
         self.thpoints = [a, b, c]
         self.points = Deq()
@@ -99,7 +99,7 @@ class Polygon(Figure):
 
     # добавление новой точки
     def add(self, t, tr=None):
-        ex = tr.isin(t)
+        exp = not (tr is None)
         for n in range(self.points.size()):
             if t.is_light(self.points.last(), self.points.first()):
                 break
@@ -113,13 +113,16 @@ class Polygon(Figure):
             self._area += abs(R2Point.area(t,
                                            self.points.last(),
                                            self.points.first()))
-            if (tr.isin(self.points.last()) and tr.isin(self.points.first())):
-                self.count -= 1
+            if exp:
+                if (tr.isin(
+                        self.points.last()) and tr.isin(self.points.first())):
+                    self.count -= 1
             # удаление освещённых рёбер из начала дека
             p = self.points.pop_first()
             while t.is_light(p, self.points.first()):
-                if (tr.isin(p) and tr.isin(self.points.first())):
-                    self.count -= 1
+                if exp:
+                    if (tr.isin(p) and tr.isin(self.points.first())):
+                        self.count -= 1
                 self._perimeter -= p.dist(self.points.first())
                 self._area += abs(R2Point.area(t, p, self.points.first()))
                 p = self.points.pop_first()
@@ -128,8 +131,9 @@ class Polygon(Figure):
             # удаление освещённых рёбер из конца дека
             p = self.points.pop_last()
             while t.is_light(self.points.last(), p):
-                if (tr.isin(p) and tr.isin(self.points.last())):
-                    self.count -= 1
+                if exp:
+                    if (tr.isin(p) and tr.isin(self.points.last())):
+                        self.count -= 1
                 self._perimeter -= p.dist(self.points.last())
                 self._area += abs(R2Point.area(t, p, self.points.last()))
                 p = self.points.pop_last()
@@ -139,11 +143,12 @@ class Polygon(Figure):
             # добавление двух новых рёбер
             self._perimeter += t.dist(self.points.first()) + \
                 t.dist(self.points.last())
-            if ex and tr.isin(self.points.first()):
-                self.count += 1
+            if exp:
+                if tr.isin(t) and tr.isin(self.points.first()):
+                    self.count += 1
 
-            if ex and tr.isin(self.points.last()):
-                self.count += 1
+                if tr.isin(t) and tr.isin(self.points.last()):
+                    self.count += 1
             self.points.push_first(t)
         return self
 
